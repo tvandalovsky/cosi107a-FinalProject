@@ -10,7 +10,7 @@ Created by:
 
 ## Project Description
 
-This project is an implementation of an SQL injection in Python. The purpose of this project is to show how a poorly designed application which uses SQL as its database managment system are vunreable to hacks and can have unwanted data extraction and manipulation.
+This project is an implementation of SQL injection in Python. The purpose of this project is to show how a poorly designed application which uses SQL as its database managment system are vunreable to hacks and can have unwanted data extraction and manipulation.
 
 ## Project Implementation
 
