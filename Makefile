@@ -5,6 +5,9 @@ unsafe_run:
 unsafe_clean:
 	cd unsafe; python scripts/db_destroyer.py
 	
-dependences:
+dependences: pip_dependences
 	brew install mysql
 	brew services start mysql
+
+pip_dependences:
+	pip install Flask mysql-connector-python
