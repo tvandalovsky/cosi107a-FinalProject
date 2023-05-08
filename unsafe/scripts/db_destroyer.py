@@ -1,13 +1,16 @@
 import mysql.connector
 
+PASSWORD = ""
+
 # Connect to MySQL server
+# IF YOU HAVE A PASSWORD YOU NEED TO ADD IT INTO THE CODE FOR IT TO WORK
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password=""
+    password=PASSWORD
 )
 
-# Drop database
+# Drop database so you can run a clean enviornment next time you run it
 mycursor = mydb.cursor()
 mycursor.execute("DROP DATABASE IF EXISTS unsafe_database")
 

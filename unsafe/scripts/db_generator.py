@@ -1,10 +1,15 @@
 import mysql.connector
+import json
 
-# Connect to MySQL server
+# Connect to MySQL server requires that user does not have password for mysql. 
+# IF YOU HAVE A PASSWORD YOU NEED TO ADD IT INTO THE CODE FOR IT TO WORK
+
+PASSWORD = ""
+
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password=""
+    password=PASSWORD
 )
 
 # Create database
@@ -18,10 +23,16 @@ mycursor.execute("USE unsafe_database")
 mycursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
+        admin BOOLEAN,
         name VARCHAR(255),
-        email VARCHAR(255)
+        email VARCHAR(255),
+        salary INT
     )
 """)
+
+default_users = [
+
+]
 
 # Close MySQL connection
 mydb.close()
