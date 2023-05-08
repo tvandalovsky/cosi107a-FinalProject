@@ -23,16 +23,25 @@ mycursor.execute("USE unsafe_database")
 mycursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        admin BOOLEAN,
+        admin BOOLEAN NOT NULL DEFAULT 0,
         name VARCHAR(255),
         email VARCHAR(255),
         salary INT
     )
 """)
 
-default_users = [
 
+users = [
+    (True, 'Professor Treese', 'treese@fake.com', 5000000),
+    (False, 'L Brandeis', 'brandeis@fake.com', 34000),
+    (False, 'Ron Leb', 'ron@fake.com', 160),
 ]
+for user in users:
+    sql = "INSERT INTO users (admin, name, email, salary) VALUES (%s, %s, %s, %s)"
+    mycursor.execute(sql, user)
 
-# Close MySQL connection
+mydb.commit()
+
+# Close MySQL connection and cursor connection
+mycursor.close()
 mydb.close()
