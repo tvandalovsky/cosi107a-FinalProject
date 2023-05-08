@@ -4,13 +4,6 @@ import mysql.connector
 app = Flask(__name__)
 
 PASSWORD = ""
-# # Connect to MySQL database
-# mydb = mysql.connector.connect(
-#     host="localhost",
-#     user="root",
-#     password="",
-#     database="unsafe_database"
-# )
 
 # Define route for home page
 @app.route('/')
@@ -40,19 +33,36 @@ def add():
         name = request.form['name']
         email = request.form['email']
 
-        # Insert data into MySQL database
+        # Check if user exists and retrieve admin value
         mycursor = mydb.cursor()
-        sql = "INSERT INTO users (name, email) VALUES (%s, %s)"
-        val = (name, email)
-        mycursor.execute(sql, val)
-        mydb.commit()
-        mycursor.execute("SELECT * FROM users")
-        data = mycursor.fetchall()
-        columns = mycursor.description
-        mydb.close()
+        mycursor.execute("SELECT admin FROM users WHERE name = %s AND email = %s", (name, email))
+        result = mycursor.fetchone()
 
-        # Return success message
-        return render_template("display.html", columns = columns , data=data)
+        if result:
+            admin_value = result[0]
+
+            # Fetch data from the database
+            if admin_value:
+                mycursor.execute("SELECT * FROM users")
+            else:
+                mycursor.execute("SELECT name, email FROM users WHERE admin = 0")
+
+            data = mycursor.fetchall()
+            columns = mycursor.description
+            mydb.close()
+
+            # Return success message
+            return render_template("display.html", data=data, admin=admin_value)
+        else:
+            # User does not exist in the database, add them with admin value set to False
+            mycursor.execute("INSERT INTO users (admin, name, email) VALUES (%s, %s, %s)", (False, name, email))
+            mydb.commit()
+
+            mycursor.execute("SELECT name, email FROM users WHERE admin = 0")
+            data = mycursor.fetchall()
+            mydb.close()
+            return render_template("display.html", data=data, column=columns, admin=False)
+
     else:
         return render_template("index.html")
 
