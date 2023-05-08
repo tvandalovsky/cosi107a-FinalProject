@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Display Data</title>
-  </head>
-  <body>
+</head>
+<body>
     <h1>User Data</h1>
     <table>
-      <thead>
-        <tr>
-          {% for column in columns %}
-            <th>{{ column[0] }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for row in data %}
-          <tr>
-            {% for value in row %}
-              <td>{{ value }}</td>
+        <thead>
+            <tr>
+                {% for column in columns %}
+                <th>{{ column[0] }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-          </tr>
-        {% endfor %}
-      </tbody>
+        </tbody>
     </table>
-  </body>
+    <br>
+    <form method="GET" action="/">
+        <input type="submit" value="Back">
+    </form>
+</body>
 </html>
