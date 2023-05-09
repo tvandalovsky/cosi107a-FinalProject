@@ -12,7 +12,7 @@ mydb = mysql.connector.connect(
 
 # Drop database so you can run a clean enviornment next time you run it
 mycursor = mydb.cursor()
-mycursor.execute("DROP DATABASE IF EXISTS unsafe_database;")
+mycursor.execute("DROP DATABASE IF EXISTS safe_database;")
 
 # Close MySQL connection
 mydb.close()

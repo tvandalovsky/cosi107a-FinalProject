@@ -13,10 +13,10 @@ mydb = mysql.connector.connect(
 
 # Create database
 mycursor = mydb.cursor()
-mycursor.execute("CREATE DATABASE IF NOT EXISTS unsafe_database")
+mycursor.execute("CREATE DATABASE IF NOT EXISTS safe_database")
 
-# Switch to unsafe_database
-mycursor.execute("USE unsafe_database")
+# Switch to safe_database
+mycursor.execute("USE safe_database")
 
 # Create users table
 mycursor.execute("""
