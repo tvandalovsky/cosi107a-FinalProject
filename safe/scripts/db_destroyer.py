@@ -19,9 +19,9 @@ mydb = mysql.connector.connect(
     password=PASSWORD
 )
 
-# Drop database so you can run a clean enviornment next time you run it
+# Drop database so you can run a clean environment next time you run it
 mycursor = mydb.cursor()
-mycursor.execute("DROP DATABASE IF EXISTS safe_database;")
+mycursor.execute("DROP DATABASE IF EXISTS safe_database")
 
 # Close MySQL connection
 mydb.close()

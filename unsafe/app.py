@@ -44,7 +44,7 @@ def add():
         # check if user already exists in the db, and retrieve admin value
         ###
         # This is where the sql injection takes place since the query is not properly parameterized.
-        # By concating the string to the query the attacker is able to add unwanted SQL commands leading them to gain admin access 
+        # By concatenating the string to the query the attacker is able to add unwanted SQL commands leading them to gain admin access 
         ###
         mycursor = mydb.cursor()
         mycursor.execute("SELECT admin FROM users WHERE name = '%s' AND email = '%s'" % (name, email))
