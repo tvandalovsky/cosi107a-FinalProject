@@ -1,3 +1,12 @@
+'''
+Created by Anya Lefkowitz, Hannah Whitmore, and Thomas Vandalovsky
+COSI-107a - Cyber Security
+
+Description:
+Unsafe app with unparameterized query
+called in make unsafe_run
+'''
+
 from flask import Flask, render_template, request
 import mysql.connector
 
@@ -33,6 +42,10 @@ def add():
         email = request.form['email']
 
         # check if user already exists in the db, and retrieve admin value
+        ###
+        # This is where the sql injection takes place since the query is not properly parameterized.
+        # By concating the string to the query the attacker is able to add unwanted SQL commands leading them to gain admin access 
+        ###
         mycursor = mydb.cursor()
         mycursor.execute("SELECT admin FROM users WHERE name = '%s' AND email = '%s'" % (name, email))
         result = mycursor.fetchall()
@@ -50,11 +63,12 @@ def add():
 
         print("result", result)
         
+        # if user entered has already been added to the SQL database
         if result:
             admin_value = result[0]
             print("admin_value", admin_value)
 
-            # get data from db
+            # if user that has already been entered has been designated as an admin
             if admin_value:
                 mycursor.execute("SELECT * FROM users")
             else:

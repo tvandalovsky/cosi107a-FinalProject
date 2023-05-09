@@ -1,3 +1,12 @@
+'''
+Created by Anya Lefkowitz, Hannah Whitmore, and Thomas Vandalovsky
+COSI-107a - Cyber Security
+
+Description: 
+python script to delete mysql database and reset testing environment
+called in make safe_clean
+'''
+
 import mysql.connector
 
 PASSWORD = ""

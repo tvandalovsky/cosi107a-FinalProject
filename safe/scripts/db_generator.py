@@ -1,3 +1,12 @@
+'''
+Created by Anya Lefkowitz, Hannah Whitmore, and Thomas Vandalovsky
+COSI-107a - Cyber Security
+
+Description: 
+python script to create mysql database with default set of admin and non admin users
+called in make safe_run
+'''
+
 import mysql.connector
 
 # Connect to MySQL server requires that user does not have password for mysql. 

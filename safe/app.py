@@ -1,3 +1,12 @@
+'''
+Created by Anya Lefkowitz, Hannah Whitmore, and Thomas Vandalovsky
+COSI-107a - Cyber Security
+
+Description:
+Ssafe app with parameterized query
+called in make unsafe_run
+'''
+
 from flask import Flask, render_template, request
 import mysql.connector
 
@@ -33,6 +42,9 @@ def add():
         email = request.form['email']
 
         # check if user already exists in the db, and retrieve admin value
+        ###
+        # This is an example of the originally vulnerable SQL query becoming safe with parameterization of the passed in values
+        ###
         mycursor = mydb.cursor()
         mycursor.execute("SELECT admin FROM users WHERE name = %s AND email = %s", (name, email))
         result = mycursor.fetchall()
