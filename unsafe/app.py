@@ -34,11 +34,25 @@ def add():
 
         # check if user already exists in the db, and retrieve admin value
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT admin FROM users WHERE name = %s AND email = %s", (name, email))
-        result = mycursor.fetchone()
+        mycursor.execute("SELECT admin FROM users WHERE name = '%s' AND email = '%s'" % (name, email))
+        result = mycursor.fetchall()
+
+        mycursor.close()
+
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password=PASSWORD,
+            database="unsafe_database"
+        )
+
+        mycursor = mydb.cursor()
+
+        print("result", result)
         
         if result:
             admin_value = result[0]
+            print("admin_value", admin_value)
 
             # get data from db
             if admin_value:
@@ -54,6 +68,7 @@ def add():
             # display relevant information
             return render_template("display.html", data=data, columns=columns, admin=admin_value)
         else:
+            mycursor = mydb.cursor()
             # user not in the db, add them with admin value set to False
             mycursor.execute("INSERT INTO users (admin, name, email) VALUES (%s, %s, %s)", (False, name, email))
             mydb.commit()
